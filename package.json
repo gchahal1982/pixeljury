@@ -1,0 +1,29 @@
+{
+  "name": "pixeljury-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Visual QA for AI-built frontends. Put your AI-built UI on trial.",
+  "type": "module",
+  "workspaces": [
+    "packages/cli",
+    "packages/core",
+    "packages/vision"
+  ],
+  "scripts": {
+    "pixeljury": "node packages/cli/bin/pixeljury.js",
+    "test": "node --test",
+    "postinstall": "node -e \"console.log('\\n  PixelJury installed. Run: npx pixeljury review http://localhost:3000\\n')\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gchahal1982/pixeljury.git"
+  },
+  "homepage": "https://github.com/gchahal1982/pixeljury#readme",
+  "bugs": {
+    "url": "https://github.com/gchahal1982/pixeljury/issues"
+  }
+}

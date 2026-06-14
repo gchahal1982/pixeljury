@@ -1,0 +1,54 @@
+{
+  "url": "http://localhost:3000/polished-saas",
+  "rubricVersion": "0.1",
+  "scoredBy": "claude vision pass (rubric v0.1) + deterministic static engine",
+  "score": 84,
+  "band": "Good, fixable gaps",
+  "composite": 84.4,
+  "deductionTotal": 0,
+  "cappedAt": null,
+  "dimensions": {
+    "typography": {
+      "score": 86,
+      "weight": 20,
+      "label": "Typography & scale",
+      "reason": "Confident Newsreader display with an italic accent; a clear 5-step scale; Space Grotesk body at a real reading measure."
+    },
+    "hierarchy": {
+      "score": 84,
+      "weight": 20,
+      "label": "Layout & hierarchy",
+      "reason": "Asymmetric hero with a clear focal point; product mock balances the right; one dominant CTA. The eye knows where to go."
+    },
+    "color": {
+      "score": 88,
+      "weight": 15,
+      "label": "Color & system",
+      "reason": "Coherent warm system — cream / ink / single terracotta accent / stone neutrals — with a dark statement band for rhythm."
+    },
+    "spacing": {
+      "score": 85,
+      "weight": 15,
+      "label": "Spacing & rhythm",
+      "reason": "Generous air, consistent vertical rhythm, aligned grid. Sections breathe."
+    },
+    "originality": {
+      "score": 80,
+      "weight": 20,
+      "label": "Originality (anti-slop)",
+      "reason": "Committed editorial direction, none of the tropes — you would not say AI built this. Held back only because editorial-serif-on-cream is itself a recognizable design genre now."
+    },
+    "polish": {
+      "score": 84,
+      "weight": 10,
+      "label": "Polish & finish",
+      "reason": "Real product mock (checkboxes, done-states, avatars), defined hover states, complete footer, zero data-slop."
+    }
+  },
+  "deductions": [],
+  "hardFails": [],
+  "screenshots": {
+    "desktop": "examples/gallery/after-desktop.png",
+    "mobile": "examples/gallery/after-mobile.png"
+  }
+}

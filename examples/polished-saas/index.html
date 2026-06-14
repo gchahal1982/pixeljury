@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FlowSync — Project tracking that stays out of your way</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* The "after": same product as ../sloppy-saas, deliberately redesigned to pass the
+         PixelJury rubric — committed editorial direction, real type scale, asymmetric hero,
+         a coherent warm palette, no gradient/emoji/left-border-card/AI-copy tropes, AA
+         contrast, 44px+ targets, and no mobile overflow at 390px. It's the demo's "after". */
+
+      :root {
+        --cream: #faf7f0;
+        --paper: #ffffff;
+        --ink: #1c1917;
+        --muted: #57534e;
+        --line: #e7e1d6;
+        --accent: #9a3412; /* used only for large text, marks, borders, hover — never small body */
+        --radius: 10px;
+        --maxw: 1140px;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+        color: var(--ink);
+        background: var(--cream);
+        font-size: 18px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+      h1, h2, h3 { font-family: "Newsreader", Georgia, serif; font-weight: 500; line-height: 1.05; letter-spacing: -0.01em; }
+      a { color: inherit; }
+      img, svg, .mock { max-width: 100%; }
+
+      .eyebrow {
+        font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--muted); font-weight: 600;
+      }
+
+      /* ── buttons / links: every interactive target ≥ 44px tall ── */
+      .btn, .ghost, .navlink, .footlink, .textlink {
+        display: inline-flex; align-items: center; min-height: 44px;
+        text-decoration: none; transition: 140ms ease;
+      }
+      .btn {
+        background: var(--ink); color: var(--cream); padding: 0 22px;
+        border-radius: var(--radius); font-weight: 600; font-size: 16px; border: 1px solid var(--ink);
+      }
+      .btn:hover { background: #000; transform: translateY(-1px); }
+      .ghost {
+        background: transparent; color: var(--ink); padding: 0 18px;
+        border: 1px solid var(--line); border-radius: var(--radius); font-weight: 600; font-size: 16px;
+      }
+      .ghost:hover { border-color: var(--ink); }
+      .textlink { color: var(--ink); font-weight: 600; font-size: 16px; gap: 6px; }
+      .textlink .arrow { color: var(--accent); transition: transform 140ms ease; }
+      .textlink:hover .arrow { transform: translateX(4px); }
+      a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+      /* ── header ── */
+      header {
+        position: sticky; top: 0; z-index: 10; background: rgba(250, 247, 240, 0.85);
+        backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--line);
+      }
+      .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font-weight: 700; font-size: 20px; }
+      .brand .mark { width: 22px; height: 22px; border-radius: 6px; background: var(--ink); position: relative; }
+      .brand .mark::after { content: ""; position: absolute; inset: 6px 6px auto auto; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); }
+      .nav-links { display: flex; align-items: center; gap: 8px; }
+      .navlink { padding: 0 12px; color: var(--muted); font-weight: 500; font-size: 15px; }
+      .navlink:hover { color: var(--ink); }
+      .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+      /* ── hero: asymmetric two-column, NOT centered ── */
+      .hero { padding: 88px 0 72px; }
+      .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
+      .hero h1 { font-size: 68px; margin: 18px 0 22px; }
+      .hero h1 em { font-style: italic; color: var(--accent); }
+      .hero p.lede { font-size: 20px; color: var(--muted); max-width: 30ch; }
+      .hero .cta-row { display: flex; align-items: center; gap: 16px; margin: 34px 0 16px; flex-wrap: wrap; }
+      .hero .fineprint { font-size: 14px; color: var(--muted); }
+
+      /* product mock (real-ish UI, not an illustration) */
+      .mock {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+        box-shadow: 0 24px 60px -28px rgba(28, 25, 23, 0.28); overflow: hidden;
+      }
+      .mock-bar { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+      .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+      .mock-bar .title { margin-left: 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+      .mock-body { padding: 18px; display: grid; gap: 12px; }
+      .task { display: grid; grid-template-columns: 18px 1fr auto; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; }
+      .check { width: 18px; height: 18px; border-radius: 6px; border: 2px solid var(--line); }
+      .task.done .check { background: var(--accent); border-color: var(--accent); }
+      .task.done .label { color: var(--muted); text-decoration: line-through; }
+      .label { font-size: 15px; font-weight: 500; }
+      .who { width: 26px; height: 26px; border-radius: 50%; background: #eee4d3; border: 1px solid var(--line); font-size: 11px; display: grid; place-items: center; color: var(--muted); font-weight: 700; }
+
+      /* ── customers strip (restrained social proof, no fake stat-slop) ── */
+      .proof { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0; }
+      .proof .inner { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+      .proof span.k { font-size: 13px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+      .proof .names { display: flex; gap: 34px; flex-wrap: wrap; }
+      .proof .names b { font-family: "Newsreader", Georgia, serif; font-size: 22px; font-weight: 500; color: #5f574d; }
+
+      /* ── features: three varied, numbered editorial blocks ── */
+      .features { padding: 92px 0; }
+      .features .head { max-width: 34ch; margin-bottom: 56px; }
+      .features h2 { font-size: 44px; margin: 14px 0; }
+      .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+      .feature .num { font-family: "Newsreader", Georgia, serif; font-size: 40px; color: var(--accent); line-height: 1; }
+      .feature h3 { font-size: 23px; margin: 16px 0 10px; }
+      .feature p { font-size: 16px; color: var(--muted); }
+      .feature .rule { width: 40px; height: 2px; background: var(--ink); margin-top: 18px; }
+
+      /* ── statement section: solid ink, high-contrast cream text (rhythm via 2nd bg color) ── */
+      .statement { background: var(--ink); color: var(--cream); padding: 96px 0; }
+      .statement blockquote { font-family: "Newsreader", Georgia, serif; font-size: 40px; line-height: 1.2; max-width: 22ch; }
+      .statement .by { margin-top: 28px; font-size: 15px; color: #d7cdbf; }
+
+      /* ── closing CTA ── */
+      .closing { padding: 96px 0; text-align: left; }
+      .closing-card { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 18px; padding: 44px; background: var(--paper); }
+      .closing h2 { font-size: 38px; max-width: 18ch; }
+      .closing p { color: var(--muted); margin-top: 8px; font-size: 17px; }
+
+      /* ── footer (AA contrast, padded links) ── */
+      footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
+      .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+      .foot-col h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; font-family: "Space Grotesk", sans-serif; font-weight: 600; }
+      /* block-level so the tap target fills the column width, not just the word width */
+      .foot-col .footlink { display: flex; width: 100%; color: var(--ink); font-size: 15px; }
+      .footlink:hover { color: var(--accent); }
+      .foot-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; flex-wrap: wrap; gap: 12px; }
+
+      /* ── responsive: stack cleanly, never overflow at 390px ── */
+      @media (max-width: 900px) {
+        .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+        .feature-grid { grid-template-columns: 1fr; gap: 36px; }
+        .foot-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 640px) {
+        body { font-size: 17px; }
+        .nav-links { display: none; }
+        .hero { padding: 56px 0 48px; }
+        .hero h1 { font-size: 44px; }
+        .hero p.lede { font-size: 18px; }
+        .features { padding: 64px 0; }
+        .features h2 { font-size: 34px; }
+        .statement { padding: 64px 0; }
+        .statement blockquote { font-size: 30px; }
+        .closing { padding: 64px 0; }
+        .closing-card { padding: 30px; }
+        .closing h2 { font-size: 30px; }
+        .foot-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="#"><span class="mark"></span>FlowSync</a>
+        <nav class="nav-links">
+          <a class="navlink" href="#features">Product</a>
+          <a class="navlink" href="#">Customers</a>
+          <a class="navlink" href="#">Pricing</a>
+          <a class="navlink" href="#">Changelog</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="textlink" href="#">Sign in</a>
+          <a class="btn" href="#">Start free</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="eyebrow">For teams who actually ship</span>
+            <h1>The project tracker that <em>disappears</em> into your work.</h1>
+            <p class="lede">FlowSync keeps plans, tasks, and progress in one quiet place — so the tool never becomes the work.</p>
+            <div class="cta-row">
+              <a class="btn" href="#">Start free</a>
+              <a class="textlink" href="#">Take the two-minute tour <span class="arrow">&rarr;</span></a>
+            </div>
+            <p class="fineprint">Free for up to 5 people. No credit card.</p>
+          </div>
+
+          <div class="mock" aria-hidden="true">
+            <div class="mock-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="title">Q3 Launch · This week</span>
+            </div>
+            <div class="mock-body">
+              <div class="task done"><span class="check"></span><span class="label">Finalize onboarding copy</span><span class="who">MK</span></div>
+              <div class="task"><span class="check"></span><span class="label">Ship pricing page redesign</span><span class="who">AR</span></div>
+              <div class="task"><span class="check"></span><span class="label">QA mobile checkout flow</span><span class="who">JL</span></div>
+              <div class="task done"><span class="check"></span><span class="label">Migrate analytics events</span><span class="who">SP</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof">
+        <div class="wrap inner">
+          <span class="k">Trusted by teams at</span>
+          <div class="names">
+            <b>Northwind</b><b>Aperture</b><b>Hartley&nbsp;&amp;&nbsp;Co</b><b>Meridian</b><b>Foundry</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="wrap">
+          <div class="head">
+            <span class="eyebrow">Why FlowSync</span>
+            <h2>Less ceremony. More shipping.</h2>
+            <p style="color: var(--muted); font-size: 17px;">Three deliberate ideas, not fifty features.</p>
+          </div>
+          <div class="feature-grid">
+            <div class="feature">
+              <div class="num">01</div>
+              <h3>One plan, always current</h3>
+              <p>Tasks, owners, and dates stay in sync automatically. No status meetings to find out where things stand.</p>
+              <div class="rule"></div>
+            </div>
+            <div class="feature">
+              <div class="num">02</div>
+              <h3>Writing, not wrangling</h3>
+              <p>Plans are documents you actually read. Structure emerges from how you write, not from filling in forms.</p>
+              <div class="rule"></div>
+            </div>
+            <div class="feature">
+              <div class="num">03</div>
+              <h3>Quiet by default</h3>
+              <p>Notifications batch into one daily digest. The app earns your attention instead of demanding it.</p>
+              <div class="rule"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="statement">
+        <div class="wrap">
+          <blockquote>"We replaced four tools with FlowSync and got our Friday afternoons back."</blockquote>
+          <div class="by">Dana Okafor — Head of Operations, Meridian</div>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="wrap">
+          <div class="closing-card">
+            <div>
+              <h2>Start tracking work the calm way.</h2>
+              <p>Set up your first project in under five minutes.</p>
+            </div>
+            <div class="cta-row">
+              <a class="btn" href="#">Start free</a>
+              <a class="ghost" href="#">Talk to us</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-col">
+            <a class="brand" href="#" style="margin-bottom: 10px;"><span class="mark"></span>FlowSync</a>
+            <p style="color: var(--muted); font-size: 14px; max-width: 26ch;">Project tracking that stays out of your way.</p>
+          </div>
+          <div class="foot-col">
+            <h4>Product</h4>
+            <a class="footlink" href="#">Features</a>
+            <a class="footlink" href="#">Pricing</a>
+            <a class="footlink" href="#">Changelog</a>
+          </div>
+          <div class="foot-col">
+            <h4>Company</h4>
+            <a class="footlink" href="#">About</a>
+            <a class="footlink" href="#">Careers</a>
+            <a class="footlink" href="#">Blog</a>
+          </div>
+          <div class="foot-col">
+            <h4>Support</h4>
+            <a class="footlink" href="#">Docs</a>
+            <a class="footlink" href="#">Contact</a>
+            <a class="footlink" href="#">Status</a>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>© 2026 FlowSync, Inc.</span>
+          <span>Made for teams who ship.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

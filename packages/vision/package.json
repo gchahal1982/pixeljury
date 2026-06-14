@@ -1,0 +1,17 @@
+{
+  "name": "@pixeljury/vision",
+  "version": "0.1.0",
+  "description": "PixelJury BYO-key vision scoring adapters (openai | anthropic | gemini | ollama | mock).",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@pixeljury/core": "*"
+  },
+  "license": "MIT"
+}

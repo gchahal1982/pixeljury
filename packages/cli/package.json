@@ -1,0 +1,55 @@
+{
+  "name": "pixeljury",
+  "version": "0.1.0",
+  "description": "Visual QA for AI-built frontends. It sees the page, scores it, and proves the fix.",
+  "type": "module",
+  "bin": {
+    "pixeljury": "bin/pixeljury.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "rubric.md"
+  ],
+  "keywords": [
+    "design",
+    "frontend",
+    "ai",
+    "ai-slop",
+    "anti-slop",
+    "visual-qa",
+    "design-qa",
+    "design-review",
+    "design-system",
+    "linter",
+    "playwright",
+    "screenshot",
+    "accessibility",
+    "wcag",
+    "vision",
+    "llm",
+    "cursor",
+    "claude-code",
+    "v0",
+    "lovable",
+    "vibe-coding",
+    "developer-tools",
+    "cli"
+  ],
+  "homepage": "https://github.com/gchahal1982/pixeljury#readme",
+  "bugs": {
+    "url": "https://github.com/gchahal1982/pixeljury/issues"
+  },
+  "dependencies": {
+    "@pixeljury/core": "*",
+    "@pixeljury/vision": "*"
+  },
+  "scripts": {
+    "prepublishOnly": "cp ../../rubric.md ./rubric.md"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gchahal1982/pixeljury.git"
+  }
+}

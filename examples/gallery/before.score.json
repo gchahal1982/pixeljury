@@ -1,0 +1,65 @@
+{
+  "url": "http://localhost:3000/sloppy-saas",
+  "rubricVersion": "0.1",
+  "scoredBy": "claude vision pass (rubric v0.1) + deterministic static engine",
+  "score": 16,
+  "band": "Broken or pure slop",
+  "composite": 40.6,
+  "deductionTotal": 25,
+  "cappedAt": 65,
+  "dimensions": {
+    "typography": {
+      "score": 45,
+      "weight": 20,
+      "label": "Typography & scale",
+      "reason": "Inter with only ~2 effective sizes; one bold sans headline. Timid, default-feeling scale."
+    },
+    "hierarchy": {
+      "score": 42,
+      "weight": 20,
+      "label": "Layout & hierarchy",
+      "reason": "Everything centered single-column; the two CTAs are near-equal weight; cards and stats share emphasis. No focal point."
+    },
+    "color": {
+      "score": 48,
+      "weight": 15,
+      "label": "Color & system",
+      "reason": "One purple gradient doing all the work; the accent appears in badge, card titles, borders, and stats — accent everywhere, no system."
+    },
+    "spacing": {
+      "score": 52,
+      "weight": 15,
+      "label": "Spacing & rhythm",
+      "reason": "Even but generic; the feature row clips off the right edge, which reads as broken rhythm."
+    },
+    "originality": {
+      "score": 22,
+      "weight": 20,
+      "label": "Originality (anti-slop)",
+      "reason": "The platonic AI-slop page: gradient + centered H1 + two pills + emoji cards + fake stats. Told AI built it, you'd believe it instantly."
+    },
+    "polish": {
+      "score": 38,
+      "weight": 10,
+      "label": "Polish & finish",
+      "reason": "Emoji-as-icons, 10k+/99.9%/24-7 data-slop, default button states, and a horizontal overflow clip. Unfinished."
+    }
+  },
+  "deductions": [
+    { "rule": "overused-font", "points": -5, "reason": "\"inter\" is the primary typeface — an AI/template default." },
+    { "rule": "full-page-gradient", "points": -5, "reason": "Large gradient background panel — a classic AI-SaaS tell." },
+    { "rule": "card-left-border", "points": -4, "reason": "Rounded card with a left-border accent stripe — a recognizable AI card pattern." },
+    { "rule": "repeated-card-pattern", "points": -5, "reason": "The same card pattern is reused 5× — reads as templated." },
+    { "rule": "pill-ai-copy", "points": -3, "reason": "Pill/badge with AI-marketing copy — \"✨ AI-powered productivity\"." },
+    { "rule": "centered-ai-hero", "points": -5, "reason": "Centered single-column hero over a gradient (the AI-SaaS template)." }
+  ],
+  "hardFails": [
+    { "rule": "mobile-overflow-390", "cap": 70, "reason": "Features row overflows the 390px viewport (horizontal scroll on mobile)." },
+    { "rule": "contrast-below-aa", "cap": 65, "reason": "Footer text contrast below 4.5:1." },
+    { "rule": "touch-target-too-small", "cap": 75, "reason": "<button> touch target under 44px." }
+  ],
+  "screenshots": {
+    "desktop": "examples/gallery/before-desktop.png",
+    "mobile": "examples/gallery/before-mobile.png"
+  }
+}

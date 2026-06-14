@@ -1,0 +1,18 @@
+{
+  "name": "@pixeljury/core",
+  "version": "0.1.0",
+  "description": "PixelJury render + static-signal engine + score composer (Playwright).",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./rubric-data": "./src/rubric-data.js"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "playwright": "^1.49.0"
+  },
+  "license": "MIT"
+}

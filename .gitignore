@@ -1,0 +1,16 @@
+node_modules/
+pixeljury/
+*.log
+.DS_Store
+.env
+.env.local
+dist/
+coverage/
+
+# PixelJury output (don't commit run artifacts)
+/pixeljury-out/
+**/screenshot.png
+**/screenshot-390.png
+**/score.json
+**/critique.md
+**/fix-prompt.md
