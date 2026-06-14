@@ -8,9 +8,10 @@
 
 # PixelJury
 
-### Visual QA for AI-built frontends — it sees the page, scores the design, and proves the fix.
+### Make your AI-built site stop looking AI-built. 🎨
 
-> **Put your AI-built UI on trial.** Stop shipping AI slop.
+> Your code works — so why does the page still look like a robot made it? **PixelJury shows you
+> exactly what's giving it away, hands your AI agent the fix, and proves the glow-up with a score.**
 
 <p>
   <a href="https://www.npmjs.com/package/pixeljury"><img alt="npm" src="https://img.shields.io/npm/v/pixeljury?color=cb3837&label=npm"></a>
@@ -21,12 +22,23 @@
   <a href="#contributing"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </p>
 
-**PixelJury is an open-source CLI that scores how much your AI-generated frontend looks like
-"AI slop."** AI coding agents (Cursor, Claude Code, v0, Lovable, Bolt, Replit, Windsurf) ship
-pages that *work* but look generically AI-made: the same gradient hero, the same Inter font,
-weak hierarchy, mobile overflow. PixelJury **renders the actual running page**, screenshots it,
-scores the pixels against a real design rubric, and writes a fix-prompt your agent can act on —
-then you re-run and watch the score climb.
+You vibe-coded a site with Cursor, Claude Code, v0, Lovable or Bolt. It *works*. But it has
+that look — the purple gradient hero, the Inter font, the emoji feature cards, the fake
+"10k+ / 99.9% / 24-7" stats. **Generic. AI-made. Slop.**
+
+**PixelJury is the taste your agent is missing.** It opens your running page, looks at the
+actual pixels like a picky designer would, and tells you — specifically — what's making it look
+cheap. Then it writes a ready-to-paste fix for your agent and gives you a design score so you
+can *watch it get better*. One example below went from **16 → 84** in a single pass. ✨
+
+No design degree, no Figma, no API key required. One command:
+
+```bash
+npx pixeljury review http://localhost:3000
+```
+
+⭐ **If "my AI site looks like AI made it" is a pain you've felt, star the repo** — it helps
+others find it.
 
 ### Contents
 
@@ -34,18 +46,17 @@ then you re-run and watch the score climb.
 [The iteration loop](#the-point-isnt-the-score--its-that-you-can-move-it) ·
 [Quickstart](#quickstart) ·
 [How it works](#how-it-works) ·
-[Providers](#providers-bring-your-own-key) ·
+[Providers](#providers) ·
 [The rubric](#the-rubric-is-open--argue-with-it) ·
 [Who it's for](#who-its-for) ·
 [FAQ](#faq) ·
 [Contributing](#contributing) ·
 [Roadmap](#roadmap)
 
-It's not a skill and it's not a static linter. Skills and linters work the *input* side —
-they shape generation before code exists, and they're blind to their own output. PixelJury
-looks at what actually rendered.
-
-> **Generation tools help agents write better UI. PixelJury checks whether the rendered UI is actually good — by looking at it.**
+**Why not just use a "design skill"?** Those help your agent *write* nicer code up front — but
+they never see what actually shows up on screen. PixelJury is the second pair of eyes *after*
+the page renders: it looks at the real pixels and catches the slop that slipped through. Use
+both — generate with whatever you like, then let PixelJury tell you if it's actually good.
 
 ---
 

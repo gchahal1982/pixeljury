@@ -2,7 +2,7 @@
   "name": "pixeljury-monorepo",
   "version": "0.1.0",
   "private": true,
-  "description": "Visual QA for AI-built frontends. Put your AI-built UI on trial.",
+  "description": "Make your AI-built site stop looking AI-built. Scores your design, finds the AI slop, and hands your agent the fix.",
   "type": "module",
   "workspaces": [
     "packages/cli",

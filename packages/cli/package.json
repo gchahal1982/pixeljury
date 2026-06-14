@@ -1,7 +1,7 @@
 {
   "name": "pixeljury",
   "version": "0.1.0",
-  "description": "Visual QA for AI-built frontends. It sees the page, scores it, and proves the fix.",
+  "description": "Make your AI-built site stop looking AI-built — scores your design, finds the AI slop, and hands your agent the fix. Works with Cursor, Claude Code, Codex, v0 & Lovable.",
   "type": "module",
   "bin": {
     "pixeljury": "bin/pixeljury.js"
