@@ -157,19 +157,47 @@ The score is **not vibes**: every point traces to a rule in [`rubric.md`](./rubr
 
 ---
 
-## Providers (bring your own key)
+## Providers
 
 ```bash
-npx pixeljury review <url> --provider anthropic   # ANTHROPIC_API_KEY
-npx pixeljury review <url> --provider openai      # OPENAI_API_KEY
-npx pixeljury review <url> --provider gemini      # GEMINI_API_KEY
-npx pixeljury review <url> --provider ollama      # local, no key (e.g. llama3.2-vision)
-npx pixeljury review <url> --provider mock        # deterministic, no key, no network
+npx pixeljury review <url> --provider anthropic     # ANTHROPIC_API_KEY
+npx pixeljury review <url> --provider openai        # OPENAI_API_KEY
+npx pixeljury review <url> --provider gemini        # GEMINI_API_KEY
+npx pixeljury review <url> --provider ollama        # local, no key (e.g. llama3.2-vision)
+npx pixeljury review <url> --provider claude-code   # your Claude Code login (no API key)
+npx pixeljury review <url> --provider codex         # your Codex / ChatGPT login (no API key)
+npx pixeljury review <url> --provider mock          # deterministic, no key, no network
 ```
 
-The key is read from `--key`, then `PIXELJURY_KEY`, then the provider's standard env var.
-Override the model with `--model`. With no key found, PixelJury falls back to the `mock`
-provider so it always runs end-to-end (the static signals are still real).
+For the API providers, the key is read from `--key`, then `PIXELJURY_KEY`, then the standard
+env var. Override the model with `--model`. With no key found, PixelJury falls back to `mock`
+so it always runs end-to-end (the static signals are still real).
+
+### Use your Claude Code or Codex subscription — no API key
+
+If you already pay for Claude Code or Codex, PixelJury can score through the CLI you already
+have logged in, instead of a separate metered key. It shells out to your local `claude` /
+`codex` binary and uses **its** auth — PixelJury has no backend and never sees or stores your
+credentials.
+
+```bash
+npx pixeljury review http://localhost:3000 --provider claude-code
+npx pixeljury review http://localhost:3000 --provider codex
+```
+
+- **Claude Code** — works with a Pro/Max subscription (run `claude` once to sign in, or
+  `claude setup-token` for a long-lived token). Point at a different binary with
+  `PIXELJURY_CLAUDE_BIN`.
+- **Codex** — works with a ChatGPT Plus/Pro/Business login (`codex` once to sign in).
+  ⚠️ OpenAI recommends API-key auth (`--provider openai`) for automation and advises against
+  subscription auth in public/CI contexts; `--provider codex` is best for individual use on
+  your own machine and draws from your shared Codex quota. `PIXELJURY_CODEX_BIN` overrides the
+  binary path.
+
+> **Even better — let your agent run the loop.** Drop [`AGENTS.md`](./AGENTS.md) (Codex/Cursor)
+> or the [`/pixeljury` slash command](./.claude/commands/pixeljury.md) (Claude Code) into your
+> project, and your agent will review → fix → re-review until the score clears a threshold,
+> on your existing subscription.
 
 ---
 

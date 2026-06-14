@@ -18,6 +18,16 @@ export async function runReview(url, options) {
   const provider = pickProvider(options);
   const rubricText = loadRubricText();
 
+  if (provider === "codex" && !options.json) {
+    process.stderr.write(
+      c.yellow(
+        "  Note: OpenAI recommends API-key auth (--provider openai) for automation and advises\n" +
+          "  against subscription auth in public/CI contexts. --provider codex runs your local\n" +
+          "  `codex` CLI with its own login; scoring draws from your shared Codex quota.\n"
+      )
+    );
+  }
+
   if (!options.json) {
     process.stderr.write(c.dim(`  Rendering ${url} …\n`));
   }
@@ -91,7 +101,8 @@ function pickProvider(options) {
   process.stderr.write(
     c.yellow(
       "  No API key found — using the deterministic mock provider.\n" +
-        "  Set ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY (or --provider) for a real visual score.\n"
+        "  For a real visual score: set ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY,\n" +
+        "  or use your existing subscription with --provider claude-code (or --provider codex).\n"
     )
   );
   return "mock";

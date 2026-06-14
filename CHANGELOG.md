@@ -15,6 +15,11 @@ version; rubric changes ship with before/after deltas on a fixed example set.
   size, overused fonts, gradient panels, repeated cards, AI-copy badges.
 - BYO-key vision adapters: `openai`, `anthropic`, `gemini`, `ollama`, plus a deterministic
   `mock` provider for tests and key-less demos.
+- **Subscription passthrough providers** — `claude-code` and `codex` shell out to the user's
+  locally-installed CLI and use its existing login (incl. a Claude Pro/Max or ChatGPT
+  subscription), so no separate API key is required. No backend, no credential handling.
+- **Agent integration** — `AGENTS.md` recipe and a `/pixeljury` Claude Code slash command so an
+  agent can run review → fix → re-review until the score clears a threshold.
 - `examples/sloppy-saas` — a runnable "before" page for the demo (scores 30/100).
 - `examples/polished-saas` — the redesigned "after" of the same product, dogfooded through
   PixelJury until it reported zero hard fails and zero deductions.

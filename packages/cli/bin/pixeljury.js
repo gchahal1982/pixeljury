@@ -18,7 +18,9 @@ const HELP = `
     npx pixeljury review <url> [options]
 
   ${c.bold("Options")}
-    --provider <name>   openai | anthropic | gemini | ollama | mock   (default: auto-detect, else mock)
+    --provider <name>   openai | anthropic | gemini | ollama | claude-code | codex | mock
+                        (default: auto-detect from env keys, else mock)
+                        claude-code / codex use your local CLI's login — no API key needed
     --model <id>        override the provider's default model
     --key <key>         API key (else PIXELJURY_KEY or <PROVIDER>_API_KEY env)
     --out <dir>         output directory (default: ./pixeljury)
