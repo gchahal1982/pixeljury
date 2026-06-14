@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      :root { --cream:#faf7f0; --ink:#1c1917; --muted:#57534e; --accent:#9a3412; --line:#e7e1d6; }
+      html, body { width: 1280px; height: 400px; }
+      body { background: var(--cream); font-family: "Space Grotesk", sans-serif; color: var(--ink); display: flex; align-items: center; }
+      .wrap { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 76px; gap: 56px; }
+      .left { max-width: 690px; }
+      .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+      .mark { width: 32px; height: 32px; border-radius: 9px; background: var(--ink); position: relative; }
+      .mark::after { content: ""; position: absolute; inset: 9px 9px auto auto; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); }
+      .brand b { font-size: 25px; font-weight: 700; letter-spacing: -0.01em; }
+      h1 { font-family: "Newsreader", serif; font-weight: 500; font-size: 52px; line-height: 1.04; letter-spacing: -0.015em; }
+      h1 em { font-style: italic; color: var(--accent); }
+      .sub { margin-top: 16px; font-size: 18px; color: var(--muted); max-width: 48ch; }
+      .cmd { margin-top: 26px; display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--cream); font-family: ui-monospace, Menlo, monospace; font-size: 15px; padding: 13px 18px; border-radius: 10px; }
+      .cmd .p { color: #9a8f80; }
+      .card { flex: none; width: 312px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 26px 64px -30px rgba(28,25,23,0.32); overflow: hidden; }
+      .row { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; }
+      .lbl { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+      .tag { font-size: 13px; color: var(--muted); margin-top: 3px; }
+      .score { font-family: "Newsreader", serif; font-size: 56px; line-height: 1; }
+      .before .score { color: #b91c1c; }
+      .after .score { color: var(--ink); }
+      .mid { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px; background: var(--cream); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: 0.03em; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="left">
+        <div class="brand"><span class="mark"></span><b>PixelJury</b></div>
+        <h1>Make your AI-built site<br />stop looking <em>AI-built</em>.</h1>
+        <div class="sub">Score the design, find the slop, and prove the glow-up.</div>
+        <div class="cmd"><span class="p">$</span> npx pixeljury review</div>
+      </div>
+      <div class="card">
+        <div class="row before"><div><div class="lbl">Before</div><div class="tag">generic AI slop</div></div><div class="score">16</div></div>
+        <div class="mid">↓ &nbsp; one fix-prompt pass &nbsp; ↓</div>
+        <div class="row after"><div><div class="lbl">After</div><div class="tag">looks designed</div></div><div class="score">84</div></div>
+      </div>
+    </div>
+  </body>
+</html>

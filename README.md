@@ -6,6 +6,10 @@
   CI design gate, LLM vision scoring, BYO key, npx CLI tool, web design quality.
 -->
 
+<p align="center">
+  <img src="./assets/banner.png" alt="PixelJury — make your AI-built site stop looking AI-built" width="100%">
+</p>
+
 # PixelJury
 
 ### Make your AI-built site stop looking AI-built. 🎨

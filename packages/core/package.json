@@ -1,6 +1,6 @@
 {
   "name": "pixeljury-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "PixelJury render + static-signal engine + score composer (Playwright).",
   "type": "module",
   "main": "src/index.js",
