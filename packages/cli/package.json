@@ -41,8 +41,8 @@
     "url": "https://github.com/gchahal1982/pixeljury/issues"
   },
   "dependencies": {
-    "@pixeljury/core": "*",
-    "@pixeljury/vision": "*"
+    "pixeljury-core": "^0.1.0",
+    "pixeljury-vision": "^0.1.0"
   },
   "scripts": {
     "prepublishOnly": "cp ../../rubric.md ./rubric.md"

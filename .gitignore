@@ -4,6 +4,7 @@ pixeljury/
 .DS_Store
 .env
 .env.local
+.npmrc
 dist/
 coverage/
 

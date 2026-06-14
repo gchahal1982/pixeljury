@@ -3,7 +3,7 @@
  * The rubric (rubric.md, passed in verbatim) IS the scoring instruction.
  */
 
-import { rubric } from "@pixeljury/core";
+import { rubric } from "pixeljury-core";
 
 const { DIMENSION_KEYS } = rubric;
 

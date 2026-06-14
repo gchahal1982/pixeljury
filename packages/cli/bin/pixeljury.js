@@ -12,7 +12,7 @@ import { c } from "../src/terminal.js";
 const VERSION = "0.1.0";
 
 const HELP = `
-  ${c.bold("PixelJury")} — visual QA for AI-built frontends.
+  ${c.bold("PixelJury")} — make your AI-built site stop looking AI-built.
 
   ${c.bold("Usage")}
     npx pixeljury review <url> [options]

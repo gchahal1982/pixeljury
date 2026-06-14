@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { analyze, summarizeForVision, buildScore } from "@pixeljury/core";
+import { analyze, summarizeForVision, buildScore } from "pixeljury-core";
 import { score as visionScore } from "../src/index.js";
 
 // End-to-end of everything except the Playwright render (which needs a browser):

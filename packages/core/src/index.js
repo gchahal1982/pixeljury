@@ -1,5 +1,5 @@
 /**
- * @pixeljury/core — render + static-signal engine + score composer.
+ * pixeljury-core — render + static-signal engine + score composer.
  */
 export { render, RenderError } from "./render.js";
 export { analyze, summarizeForVision } from "./static-signals.js";

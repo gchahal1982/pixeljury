@@ -1,5 +1,5 @@
 {
-  "name": "@pixeljury/core",
+  "name": "pixeljury-core",
   "version": "0.1.0",
   "description": "PixelJury render + static-signal engine + score composer (Playwright).",
   "type": "module",

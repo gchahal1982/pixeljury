@@ -18,7 +18,7 @@
  * fake-data-slop. Unknown rules default to a −3 deduction in the composer.
  */
 
-import { rubric } from "@pixeljury/core";
+import { rubric } from "pixeljury-core";
 
 const { DIMENSION_KEYS } = rubric;
 

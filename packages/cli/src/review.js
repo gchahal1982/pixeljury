@@ -5,8 +5,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { render, analyze, summarizeForVision, buildScore, writeOutputs, RenderError } from "@pixeljury/core";
-import { score as visionScore, PROVIDERS } from "@pixeljury/vision";
+import { render, analyze, summarizeForVision, buildScore, writeOutputs, RenderError } from "pixeljury-core";
+import { score as visionScore, PROVIDERS } from "pixeljury-vision";
 import { loadRubricText } from "./rubric-loader.js";
 import { c, renderReport } from "./terminal.js";
 

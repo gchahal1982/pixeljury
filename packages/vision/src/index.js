@@ -1,5 +1,5 @@
 /**
- * @pixeljury/vision — Stage 3. Sends the screenshots + static summary + rubric to a
+ * pixeljury-vision — Stage 3. Sends the screenshots + static summary + rubric to a
  * vision model and returns the validated { dimensions, visionTropes } contract.
  *
  * BYO key. No PixelJury backend, no auth wall, no cost to the maintainer.
