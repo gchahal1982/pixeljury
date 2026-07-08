@@ -1,7 +1,7 @@
 {
   "name": "pixeljury-vision",
-  "version": "0.1.1",
-  "description": "PixelJury vision scoring adapters (openai | anthropic | gemini | ollama | claude-code | codex | mock).",
+  "version": "0.1.5",
+  "description": "Vision scoring adapters for PixelJury visual QA with OpenAI, Anthropic, Gemini, Ollama, Claude Code, Codex, and mock providers.",
   "type": "module",
   "main": "src/index.js",
   "exports": {
@@ -11,7 +11,35 @@
     "src"
   ],
   "dependencies": {
-    "pixeljury-core": "^0.1.0"
+    "pixeljury-core": "^0.1.5"
+  },
+  "keywords": [
+    "visual-qa",
+    "design-qa",
+    "vision-ai",
+    "llm",
+    "openai",
+    "anthropic",
+    "gemini",
+    "ollama",
+    "claude-code",
+    "codex",
+    "screenshot",
+    "ai-slop",
+    "frontend-qa",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/gchahal1982/pixeljury#readme",
+  "bugs": {
+    "url": "https://github.com/gchahal1982/pixeljury/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gchahal1982/pixeljury.git",
+    "directory": "packages/vision"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "license": "MIT"
 }

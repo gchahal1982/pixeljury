@@ -1,7 +1,7 @@
 {
   "name": "pixeljury-core",
-  "version": "0.1.1",
-  "description": "PixelJury render + static-signal engine + score composer (Playwright).",
+  "version": "0.1.5",
+  "description": "Node.js visual QA engine for rendering pages with Playwright, detecting static design issues, and composing PixelJury scores.",
   "type": "module",
   "main": "src/index.js",
   "exports": {
@@ -13,6 +13,33 @@
   ],
   "dependencies": {
     "playwright": "^1.49.0"
+  },
+  "keywords": [
+    "visual-qa",
+    "design-qa",
+    "frontend-qa",
+    "playwright",
+    "screenshot",
+    "accessibility",
+    "wcag",
+    "contrast",
+    "mobile-overflow",
+    "touch-targets",
+    "ai-slop",
+    "static-analysis",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/gchahal1982/pixeljury#readme",
+  "bugs": {
+    "url": "https://github.com/gchahal1982/pixeljury/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gchahal1982/pixeljury.git",
+    "directory": "packages/core"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "license": "MIT"
 }

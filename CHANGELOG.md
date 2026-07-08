@@ -3,7 +3,48 @@
 All notable changes are documented here. Scores are reproducible against a stated rubric
 version; rubric changes ship with before/after deltas on a fixed example set.
 
-## [0.1.0] — unreleased
+## [0.1.5] - 2026-07-07
+
+### Fixed
+- Passed Codex passthrough screenshots as separate `--image` arguments instead of one
+  comma-joined value.
+- Strengthened passthrough isolation tests so the Codex adapter's image argument shape is
+  covered.
+
+## [0.1.4] - 2026-07-07
+
+### Fixed
+- Isolated `claude-code` and `codex` passthrough provider runs by staging screenshots in a
+  temporary working directory before invoking the local agent CLI.
+- Added regression coverage for passthrough provider staging so local CLI calls do not receive
+  original project screenshot paths.
+- Replaced silent `postpack` cleanup with explicit forced removal.
+- Warned that `--key` can be visible in shell history and process lists; environment variables
+  are preferred for provider keys.
+
+## [0.1.3] - 2026-07-07
+
+### Fixed
+- Corrected the `pixeljury-core` npm README quickstart to match the real `buildScore`
+  dimension contract and returned `score` field.
+- Clarified provider fallback docs: PixelJury auto-selects `mock` only when no provider is
+  selected and no provider key is available.
+
+## [0.1.2] - 2026-07-07
+
+### Changed
+- Reworked the root and npm package READMEs around the developer outcome, install path,
+  quickstart, comparison, compatibility notes, and trust links.
+- Expanded npm metadata for `pixeljury-core` and `pixeljury-vision` with descriptions,
+  keywords, repository, homepage, bugs, and Node engine fields.
+- Tightened the `pixeljury` CLI package description and keywords for npm search.
+
+### Fixed
+- `pixeljury --version` now reads from the package manifest instead of a stale hardcoded value.
+- The CLI package now copies `rubric.md` during `npm pack`/`npm publish` and removes the
+  temporary copy afterward.
+
+## [0.1.1] - 2026-06-14
 
 ### Added
 - `pixeljury review <url>` — the full 0.1 pipeline: render → static signals → vision score →

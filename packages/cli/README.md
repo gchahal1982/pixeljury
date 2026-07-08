@@ -1,107 +1,118 @@
-<!--
-  Keywords: AI slop, anti-slop, AI-generated UI checker, visual QA for AI frontends, design QA
-  CLI, frontend design linter, rendered-pixel design scoring, screenshot design review,
-  Playwright design audit, Cursor, Claude Code, Codex, v0, Lovable, Bolt, vibe coding, design
-  system, WCAG contrast, accessibility, mobile overflow, LLM vision scoring, npx CLI tool.
--->
-
-<p align="center">
-  <a href="https://github.com/gchahal1982/pixeljury">
-    <img src="https://raw.githubusercontent.com/gchahal1982/pixeljury/main/assets/banner.png" alt="PixelJury — make your AI-built site stop looking AI-built" width="100%">
-  </a>
-</p>
-
 # PixelJury
 
-### Make your AI-built site stop looking AI-built. 🎨
+PixelJury is a visual QA CLI for AI-built frontends that renders your page, catches generic design and accessibility problems, and writes the fix prompt your coding agent can apply.
 
-> Your code works — so why does the page still look like a robot made it? **PixelJury shows you
-> exactly what's giving it away, hands your AI agent the fix, and proves the glow-up with a score.**
+[![npm version](https://img.shields.io/npm/v/pixeljury.svg)](https://www.npmjs.com/package/pixeljury)
+[![npm downloads](https://img.shields.io/npm/dm/pixeljury.svg)](https://www.npmjs.com/package/pixeljury)
+[![license](https://img.shields.io/npm/l/pixeljury.svg)](https://github.com/gchahal1982/pixeljury/blob/main/LICENSE)
+![Node](https://img.shields.io/badge/node-%3E%3D18-43853d.svg)
 
-<p>
-  <a href="https://www.npmjs.com/package/pixeljury"><img alt="npm" src="https://img.shields.io/npm/v/pixeljury?color=cb3837&label=npm"></a>
-  <a href="https://www.npmjs.com/package/pixeljury"><img alt="downloads" src="https://img.shields.io/npm/dm/pixeljury?color=cb3837"></a>
-  <a href="https://github.com/gchahal1982/pixeljury"><img alt="GitHub stars" src="https://img.shields.io/github/stars/gchahal1982/pixeljury?style=social"></a>
-  <a href="https://github.com/gchahal1982/pixeljury/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-</p>
+- Reviews the rendered page in Chromium instead of guessing from source code.
+- Flags hard failures: contrast, mobile overflow at 390px, small touch targets, tiny text, and repeated AI UI tropes.
+- Scores typography, hierarchy, color, spacing, originality, and polish with your chosen vision provider.
+- Writes `critique.md`, `fix-prompt.md`, screenshots, and `score.json` for an agent review -> fix -> re-review loop.
 
-You vibe-coded a site with **Cursor, Claude Code, v0, Lovable or Bolt**. It *works*. But it has
-that look — the purple gradient hero, the Inter font, emoji feature cards, fake
-"10k+ / 99.9% / 24-7" stats. **Generic. AI-made. Slop.**
+## Install
 
-**PixelJury is the taste your agent is missing.** It opens your running page, looks at the
-actual pixels like a picky designer would, tells you *specifically* what's making it look cheap,
-then writes a ready-to-paste fix for your agent and gives you a design score so you can watch it
-get better. The example below went from **16 → 84** in a single pass. ✨
+Run it directly:
 
 ```bash
 npx pixeljury review http://localhost:3000
 ```
 
-No design degree, no Figma, no API key required.
+Or install it in a project:
 
-## See it work — before / after
+```bash
+npm install --save-dev pixeljury
+pnpm add -D pixeljury
+yarn add -D pixeljury
+bun add -d pixeljury
+```
 
-<table>
-  <tr>
-    <td align="center"><b>Before — 16/100 · Broken or pure slop</b></td>
-    <td align="center"><b>After — 84/100 · looks designed</b></td>
-  </tr>
-  <tr>
-    <td><img src="https://raw.githubusercontent.com/gchahal1982/pixeljury/main/examples/gallery/before-desktop.png" alt="Generic AI-SaaS page: purple gradient hero, emoji cards, fake stats" width="100%"></td>
-    <td><img src="https://raw.githubusercontent.com/gchahal1982/pixeljury/main/examples/gallery/after-desktop.png" alt="Redesigned page: editorial serif headline, warm palette, real product mock" width="100%"></td>
-  </tr>
-  <tr>
-    <td align="center">3 hard fails · 6 slop-trope deductions</td>
-    <td align="center">0 hard fails · 0 deductions</td>
-  </tr>
-</table>
+## Quickstart
 
-Run it, hand the generated `fix-prompt.md` to your agent, run it again, watch the score climb.
-**That loop is the product.**
+```bash
+npx pixeljury review http://localhost:3000 --provider mock
+```
 
-## What you get
+PixelJury writes:
 
-Every run writes to `./pixeljury/`:
+```text
+pixeljury/
+  screenshot.png
+  screenshot-390.png
+  critique.md
+  fix-prompt.md
+  score.json
+```
 
-| File | What it is |
-|---|---|
-| `screenshot.png` / `screenshot-390.png` | desktop + mobile renders |
-| `critique.md` | human-readable verdict with per-dimension scores |
-| `fix-prompt.md` | agent-ready instructions, hard-fails first |
-| `score.json` | machine-readable result |
+Give `pixeljury/fix-prompt.md` to your coding agent, apply the fixes, and re-run the command. Use a model-backed provider for the full visual score:
 
-## Providers — bring a key, or use a subscription you already have
+```bash
+npx pixeljury review http://localhost:3000 --provider anthropic
+npx pixeljury review http://localhost:3000 --provider openai
+npx pixeljury review http://localhost:3000 --provider claude-code
+npx pixeljury review http://localhost:3000 --provider codex
+```
+
+## What You Can Do With It
+
+- Review a landing page before shipping it.
+- Catch common AI-generated UI tells: gradient heroes, emoji feature cards, fake metrics, repeated card grids, default fonts, and low-contrast footer text.
+- Turn vague design feedback into an agent-ready remediation prompt.
+- Keep screenshots and `score.json` as before/after proof for a PR or CI gate.
+
+## Why PixelJury?
+
+- **It inspects real pixels.** The CLI opens the URL in Chromium and reviews the page users will see.
+- **Deterministic checks run without a key.** Contrast, mobile overflow, touch-target size, tiny text, and slop-trope detections work with `--provider mock`.
+- **The output is actionable.** `fix-prompt.md` is written for coding agents and prioritizes hard fails first.
+- **No hosted service is required.** Use provider API keys, local Ollama, Claude Code, Codex, or the mock provider.
+- **The rubric is public.** Scores trace back to [`rubric.md`](https://github.com/gchahal1982/pixeljury/blob/main/rubric.md).
+
+## Providers
 
 ```bash
 npx pixeljury review <url> --provider anthropic     # ANTHROPIC_API_KEY
 npx pixeljury review <url> --provider openai        # OPENAI_API_KEY
 npx pixeljury review <url> --provider gemini        # GEMINI_API_KEY
-npx pixeljury review <url> --provider ollama        # local, no key
-npx pixeljury review <url> --provider claude-code   # your Claude Code login — no API key
-npx pixeljury review <url> --provider codex         # your Codex / ChatGPT login — no API key
-npx pixeljury review <url> --provider mock          # deterministic, no key, no network
+npx pixeljury review <url> --provider ollama        # local model, no API key
+npx pixeljury review <url> --provider claude-code   # local Claude Code login
+npx pixeljury review <url> --provider codex         # local Codex / ChatGPT login
+npx pixeljury review <url> --provider mock          # deterministic checks only
 ```
 
-With no key, PixelJury falls back to `mock` so it always runs end-to-end — the deterministic
-checks (contrast, mobile overflow, touch targets, slop tropes) are still real.
+API providers read keys from `--key`, then `PIXELJURY_KEY`, then the provider's standard environment variable. Prefer environment variables for keys; command-line arguments can be visible in shell history and process lists. When no provider is selected and no key is available, PixelJury auto-selects `mock`; if you explicitly choose an API provider, you must provide that provider's key.
 
-## How it works
+`--provider claude-code` and `--provider codex` shell out to your local CLI. PixelJury stages screenshots in a temporary working directory for those passthrough runs so the local agent is not pointed at your project checkout. Use API-key providers for shared automation or public CI.
 
-```
-RENDER (Playwright) → STATIC SIGNALS (deterministic) → VISION SCORE (BYO key) → COMPOSE
-```
+## Compared To Alternatives
 
-Six weighted design dimensions (typography, hierarchy, color, spacing, **originality**, polish)
-scored by a vision model, minus deterministic slop deductions, capped by any hard fail. Every
-point traces to an open, versioned [rubric](https://github.com/gchahal1982/pixeljury/blob/main/rubric.md).
+| Need | PixelJury | Common alternative |
+|---|---|---|
+| AI UI cleanup | Detects repeated cards, default fonts, gradients, fake stats, and generic AI copy in the rendered page. | Prompt snippets and design skills help before generation but do not inspect the final page. |
+| Accessibility smoke check | Includes contrast, mobile overflow, touch target, and tiny-text checks. | Axe and Lighthouse cover broader accessibility and performance concerns. |
+| Agent handoff | Writes `fix-prompt.md` for targeted implementation work. | Manual review often leaves comments the agent must interpret. |
 
-## Who it's for
+## Compatibility And Limitations
 
-Developers vibe-coding UIs with Cursor / Claude Code / v0 / Lovable / Bolt who want a second
-opinion before they ship — and teams that want a repeatable design-quality bar in code review
-and CI instead of "looks fine to me."
+- Requires Node.js 18 or newer.
+- Uses Playwright and Chromium to render pages. If Chromium is missing, run `npx playwright install chromium`.
+- Reviews a URL, so the app must already be running.
+- `mock` runs deterministic checks only; use a model-backed provider for visual dimension scoring.
 
----
+## Lower-Level Packages
 
-**Full docs, the rubric, and how to contribute:** https://github.com/gchahal1982/pixeljury  ·  MIT
+- [`pixeljury-core`](https://www.npmjs.com/package/pixeljury-core): Playwright rendering, static signals, contrast helpers, and score composition.
+- [`pixeljury-vision`](https://www.npmjs.com/package/pixeljury-vision): OpenAI, Anthropic, Gemini, Ollama, Claude Code, Codex, and mock vision adapters.
+
+## Links
+
+- [Repository](https://github.com/gchahal1982/pixeljury)
+- [Examples](https://github.com/gchahal1982/pixeljury/tree/main/examples)
+- [Rubric](https://github.com/gchahal1982/pixeljury/blob/main/rubric.md)
+- [Security policy](https://github.com/gchahal1982/pixeljury/blob/main/SECURITY.md)
+
+## License
+
+MIT

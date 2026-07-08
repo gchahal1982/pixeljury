@@ -1,7 +1,7 @@
 {
   "name": "pixeljury",
-  "version": "0.1.1",
-  "description": "Make your AI-built site stop looking AI-built — scores your design, finds the AI slop, and hands your agent the fix. Works with Cursor, Claude Code, Codex, v0 & Lovable.",
+  "version": "0.1.5",
+  "description": "Visual QA CLI for AI-built frontends that renders pages, finds design and accessibility issues, and writes agent-ready fix prompts.",
   "type": "module",
   "bin": {
     "pixeljury": "bin/pixeljury.js"
@@ -12,28 +12,22 @@
     "rubric.md"
   ],
   "keywords": [
-    "design",
-    "frontend",
-    "ai",
     "ai-slop",
-    "anti-slop",
     "visual-qa",
     "design-qa",
+    "frontend-qa",
+    "ai-ui",
     "design-review",
-    "design-system",
-    "linter",
-    "playwright",
-    "screenshot",
+    "design-linter",
     "accessibility",
     "wcag",
-    "vision",
-    "llm",
+    "mobile-overflow",
+    "playwright",
+    "screenshot",
+    "vision-ai",
     "cursor",
     "claude-code",
-    "v0",
-    "lovable",
-    "vibe-coding",
-    "developer-tools",
+    "codex",
     "cli"
   ],
   "homepage": "https://github.com/gchahal1982/pixeljury#readme",
@@ -41,11 +35,15 @@
     "url": "https://github.com/gchahal1982/pixeljury/issues"
   },
   "dependencies": {
-    "pixeljury-core": "^0.1.0",
-    "pixeljury-vision": "^0.1.0"
+    "pixeljury-core": "^0.1.5",
+    "pixeljury-vision": "^0.1.5"
   },
   "scripts": {
-    "prepublishOnly": "cp ../../rubric.md ./rubric.md"
+    "prepack": "node -e \"require('node:fs').copyFileSync('../../rubric.md','rubric.md')\"",
+    "postpack": "node -e \"require('node:fs').rmSync('rubric.md',{force:true})\""
+  },
+  "engines": {
+    "node": ">=18"
   },
   "license": "MIT",
   "repository": {

@@ -14,62 +14,62 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { stageImages } from "./util.js";
 
 export async function call({ system, user, imagePaths = [], model }) {
   const bin = process.env.PIXELJURY_CLAUDE_BIN || "claude";
-  const imgs = imagePaths.filter(Boolean).map((p) => path.resolve(p));
-  const dirs = [...new Set(imgs.map((p) => path.dirname(p)))];
 
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "pixeljury-cc-"));
   const sysFile = path.join(tmp, "system.txt");
-  fs.writeFileSync(sysFile, system);
+  let imgs = [];
 
-  const imgLines = [];
-  if (imgs[0]) imgLines.push(`Desktop screenshot: ${imgs[0]}`);
-  if (imgs[1]) imgLines.push(`Mobile (390px) screenshot: ${imgs[1]}`);
-  const prompt =
-    `${user}\n\nUse the Read tool to open these screenshot files, then score what you actually see:\n` +
-    imgLines.join("\n") +
-    `\n\nReturn ONLY the JSON object — no prose, no markdown fences.`;
-
-  const args = [
-    "-p", prompt,
-    "--append-system-prompt-file", sysFile,
-    "--allowedTools", "Read",
-    "--output-format", "json",
-    "--max-turns", "6",
-  ];
-  for (const d of dirs) args.push("--add-dir", d);
-  if (model) args.push("--model", model);
-
-  let res;
   try {
-    res = spawnSync(bin, args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-  } finally {
-    try { fs.rmSync(tmp, { recursive: true, force: true }); } catch { /* ignore */ }
-  }
+    fs.writeFileSync(sysFile, system);
+    imgs = stageImages(imagePaths, tmp);
 
-  if (res.error) {
-    if (res.error.code === "ENOENT") {
-      throw new Error(
-        `Claude Code CLI ("${bin}") not found on PATH. Install Claude Code (and run \`claude\` once to sign in), ` +
-          `set PIXELJURY_CLAUDE_BIN to its path, or use --provider anthropic for the API instead.`
-      );
+    const imgLines = [];
+    if (imgs[0]) imgLines.push(`Desktop screenshot: ${imgs[0]}`);
+    if (imgs[1]) imgLines.push(`Mobile (390px) screenshot: ${imgs[1]}`);
+    const prompt =
+      `${user}\n\nUse the Read tool to open these screenshot files, then score what you actually see:\n` +
+      imgLines.join("\n") +
+      `\n\nReturn ONLY the JSON object — no prose, no markdown fences.`;
+
+    const args = [
+      "-p", prompt,
+      "--append-system-prompt-file", sysFile,
+      "--allowedTools", "Read",
+      "--output-format", "json",
+      "--max-turns", "6",
+      "--add-dir", tmp,
+    ];
+    if (model) args.push("--model", model);
+
+    const res = spawnSync(bin, args, { cwd: tmp, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+    if (res.error) {
+      if (res.error.code === "ENOENT") {
+        throw new Error(
+          `Claude Code CLI ("${bin}") not found on PATH. Install Claude Code (and run \`claude\` once to sign in), ` +
+            `set PIXELJURY_CLAUDE_BIN to its path, or use --provider anthropic for the API instead.`
+        );
+      }
+      throw res.error;
     }
-    throw res.error;
-  }
-  if (res.status !== 0) {
-    throw new Error(`claude -p exited ${res.status}: ${(res.stderr || "").trim().slice(0, 500)}`);
-  }
+    if (res.status !== 0) {
+      throw new Error(`claude -p exited ${res.status}: ${(res.stderr || "").trim().slice(0, 500)}`);
+    }
 
-  // `--output-format json` returns a result envelope; the model's text is in `.result`.
-  const out = res.stdout || "";
-  try {
-    const env = JSON.parse(out);
-    if (env && typeof env.result === "string") return env.result;
-    if (env && env.structured_output) return JSON.stringify(env.structured_output);
-  } catch {
-    /* not an envelope — fall through to raw, parseVision will extract */
+    // `--output-format json` returns a result envelope; the model's text is in `.result`.
+    const out = res.stdout || "";
+    try {
+      const env = JSON.parse(out);
+      if (env && typeof env.result === "string") return env.result;
+      if (env && env.structured_output) return JSON.stringify(env.structured_output);
+    } catch {
+      /* not an envelope — fall through to raw, parseVision will extract */
+    }
+    return out;
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
   }
-  return out;
 }

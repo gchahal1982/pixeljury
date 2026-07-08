@@ -5,11 +5,15 @@
  * 0.1 ships exactly one command: `review`. fix / compare / report land in 0.2+.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { parseArgs } from "../src/args.js";
 import { runReview } from "../src/review.js";
 import { c } from "../src/terminal.js";
 
-const VERSION = "0.1.0";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const VERSION = JSON.parse(fs.readFileSync(path.join(__dirname, "../package.json"), "utf8")).version;
 
 const HELP = `
   ${c.bold("PixelJury")} — make your AI-built site stop looking AI-built.
@@ -22,7 +26,7 @@ const HELP = `
                         (default: auto-detect from env keys, else mock)
                         claude-code / codex use your local CLI's login — no API key needed
     --model <id>        override the provider's default model
-    --key <key>         API key (else PIXELJURY_KEY or <PROVIDER>_API_KEY env)
+    --key <key>         API key override; prefer env vars because argv can be visible
     --out <dir>         output directory (default: ./pixeljury)
     --json              print score.json to stdout instead of the report
     -h, --help          show this help
